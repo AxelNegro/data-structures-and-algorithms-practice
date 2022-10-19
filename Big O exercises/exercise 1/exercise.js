@@ -4,9 +4,9 @@ function funChallenge(input) {
     a = 50 + 3; // O(1)
   
     for (let i = 0; i < input.length; i++) { // O(n)
-      anotherFunction(); // O(1)
-      let stranger = true; // O(1)
-      a++; // O(1)
+      anotherFunction(); // O(n)
+      let stranger = true; // O(n)
+      a++; // O(n)
     }
     return a; // O(1)
-  } // Result: O((n*3)+3) = O(n)a
+  } // Result: O(4n+ 3) = O(n)
