@@ -18,7 +18,7 @@ function mergeSortedArrays(arr1, arr2) {
   while(arr1Item||arr2Item){ 
     // If the second array item its greater or it's undefined,
     // then i save the next item of the first array
-    if(arr1Item<arr2Item||!arr2Item){
+    if(!arr2Item||arr1Item<arr2Item){
       // save the item on the merged array
       mergedArray.push(arr1Item); 
       // get the next item
