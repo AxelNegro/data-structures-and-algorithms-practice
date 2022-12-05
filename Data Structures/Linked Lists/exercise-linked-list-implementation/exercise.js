@@ -12,31 +12,34 @@
 //   }
 // };
 
+class Node{
+  constructor(value){
+    this.value = value
+    this.next = null;
+  }
+
+  setNext(next){
+    this.next = next;
+  }
+}
+
 class LinkedList {
   constructor(value) {
-    this.head = {
-      value: value,
-      next: null
-    };
+    this.head = new Node(value);
     this.tail = this.head;
     this.length = 1;
   }
-
+  
   append(value) {
-    const lastNode = {
-      value: value,
-      next: null
-    };
+    const lastNode = new Node(value);
     this.tail.next = lastNode;
     this.tail = lastNode;
     this.length++;
   }
 
-  prepend(value){
-    const firstNode = {
-      value: value,
-      next: this.head
-    };
+  preprend(value){
+    const firstNode = new Node(value);
+    firstNode.setNext(this.head);
     this.head = firstNode;
     this.length++;
   }
@@ -46,5 +49,7 @@ class LinkedList {
 let myLinkedList = new LinkedList(10);
 myLinkedList.append(5);
 myLinkedList.append(16);
-myLinkedList.prepend(1);
+myLinkedList.preprend(1);
+
+console.log(myLinkedList);
 
