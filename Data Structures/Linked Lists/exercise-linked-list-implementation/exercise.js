@@ -64,6 +64,7 @@ class LinkedList {
       if(index === actualNodeIndex){
         insertedNode.setNext(actualNode);
         behindNode.setNext(insertedNode);
+        this.length++;
         break;
       }
       behindNode = actualNode;
@@ -71,6 +72,30 @@ class LinkedList {
       actualNodeIndex++;
     }
     
+  }
+
+  remove(index){
+    if(index === 0){
+      this.head = this.head.next;
+      this.length--;
+      return
+    }
+
+    let behindNode = null;
+    let actualNode = this.head;
+    let actualNodeIndex = 0;
+
+    while(actualNode){
+      if(index === actualNodeIndex){
+        actualNode = actualNode.next;
+        behindNode.setNext(actualNode);
+        this.length--;
+        break;
+      }
+      behindNode = actualNode;
+      actualNode = actualNode.next;
+      actualNodeIndex++;
+    }
   }
 
   list(){
@@ -92,5 +117,7 @@ myLinkedList.append(16);
 myLinkedList.prepend(1);
 console.log(myLinkedList.list());
 myLinkedList.insert(2, 13)
+console.log(myLinkedList.list());
+myLinkedList.remove(2);
 console.log(myLinkedList.list());
 
