@@ -46,6 +46,8 @@ class Stack {
   // Method in charge of remove the top item on the stack
   pop(){
     // the new top it's now the next node of the previous node
+    if(this.top === this.bottom)
+      this.bottom = null;
     this.top = this.top.getNext();
     // the length decrements
     this.length--;
