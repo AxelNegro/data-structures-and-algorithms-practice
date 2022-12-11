@@ -10,6 +10,7 @@ class BinarySearchTree {
   constructor(){
     this.root = null;
   }
+  // Method in charge of inserting a value in the tree
   insert(value){
 	  // If value is null, then return
 	  if(!value) return;
@@ -36,8 +37,27 @@ class BinarySearchTree {
   	else
   		behindNode.left = new Node(value);
   }
+  // Method in charge of finding a value in the tree
   lookup(value){
-    //Code here
+  	// if root it's null, then return
+    if(!this.root)
+  		return null;
+  	// instantiate the variable that's going to contain the next node
+  	let nextNode = null;
+  	// instantiate the variable that's going to contain the behind node
+    let behindNode = this.root;
+    
+  	do{ 
+      if(nextNode) behindNode = nextNode; // if the nextNode its not null, then the new behind node its the next node
+  		if(value > behindNode.value) // if the value it's greater than the value of the behind node
+  		  nextNode = behindNode.right; // then the new next node it's the behind node's right
+    	else if(value < behindNode.value) // else if the value its less than the value of the behind node
+    		nextNode = behindNode.left; // the next node it's the behind node's left
+      else // if it's not greater and not less, then it's equal
+        return behindNode.value; // so i return it
+    } while(nextNode) //while the next node it's not null, i keep iterating over the tree
+    // if the code reachs this part, then means that next node it's null and the specified value doesnt exist, so i return null
+    return null;
   }
   // remove
 }
@@ -51,6 +71,8 @@ tree.insert(170)
 tree.insert(15)
 tree.insert(1)
 console.log(JSON.stringify(traverse(tree.root)))
+console.log(tree.lookup(15))
+console.log(tree.lookup(16))
 
 //     9
 //  4     20
