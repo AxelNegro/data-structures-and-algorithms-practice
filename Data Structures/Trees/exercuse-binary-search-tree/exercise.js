@@ -42,20 +42,17 @@ class BinarySearchTree {
   	// if root it's null, then return
     if(!this.root)
   		return null;
-  	// instantiate the variable that's going to contain the next node
-  	let nextNode = null;
   	// instantiate the variable that's going to contain the behind node
-    let behindNode = this.root;
+    let currentNode = this.root;
     
   	do{ 
-      if(nextNode) behindNode = nextNode; // if the nextNode its not null, then the new behind node its the next node
-  		if(value > behindNode.value) // if the value it's greater than the value of the behind node
-  		  nextNode = behindNode.right; // then the new next node it's the behind node's right
-    	else if(value < behindNode.value) // else if the value its less than the value of the behind node
-    		nextNode = behindNode.left; // the next node it's the behind node's left
+      if(value > currentNode.value) // if the value it's greater than the value of the behind node
+  		  currentNode = currentNode.right; // then the new next node it's the behind node's right
+    	else if(value < currentNode.value) // else if the value its less than the value of the behind node
+    		currentNode = currentNode.left; // the next node it's the behind node's left
       else // if it's not greater and not less, then it's equal
-        return behindNode.value; // so i return it
-    } while(nextNode) //while the next node it's not null, i keep iterating over the tree
+        return currentNode.value; // so i return it
+    } while(currentNode) //while the next node it's not null, i keep iterating over the tree
     // if the code reachs this part, then means that next node it's null and the specified value doesnt exist, so i return null
     return null;
   }
