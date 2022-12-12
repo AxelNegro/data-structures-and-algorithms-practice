@@ -41,7 +41,7 @@ class BinarySearchTree {
   lookup(value){
   	// if root it's null, then return
     if(!this.root)
-  		return null;
+  		return false;
   	// instantiate the variable that's going to contain the behind node
     let currentNode = this.root;
     
@@ -51,12 +51,75 @@ class BinarySearchTree {
     	else if(value < currentNode.value) // else if the value its less than the value of the behind node
     		currentNode = currentNode.left; // the next node it's the behind node's left
       else // if it's not greater and not less, then it's equal
-        return currentNode.value; // so i return it
+        return true; // so i return it
     } while(currentNode) //while the next node it's not null, i keep iterating over the tree
     // if the code reachs this part, then means that next node it's null and the specified value doesnt exist, so i return null
-    return null;
+    return false;
   }
-  // remove
+  // Method in charge of removing an object from the tree
+  remove(value){
+    // if root it's null, then return false
+    if(!this.root)
+  		return false;
+    // instantiate the variable that's going to contain the current node while iterating over the tree
+    let currentNode = this.root;
+  	// instantiate the variable that's going to contain the node to delete
+    let deletedNode = null;
+  	// instantiate the variable that's going to contain the parent of the node to delete
+    // this is mainly to update this node with the data of the replacement node
+    let deletedParentNode = null;
+    // instantiate the variable that's going to contain the node that replace the deleted one
+    let replacementNode = null;
+    // instantiate the variable that's going to contain the node that it's the parent of the replacement node
+    // this is mainly to update to null the pointer to the child node which it's now the replacement node
+    let replacementParentNode = null;
+  	do{ 
+      if(deletedNode){ // if the node to deleted was found
+        if(currentNode.left) // if there's a node with less value than the actual one
+          replacementParentNode = currentNode; // then i save the current node as the replacement parent node to update it's childs nodes later
+        else
+          replacementNode = currentNode; // else, then the current node it's the smallest one
+        currentNode = currentNode.left; // i keep iterating to find a smaller value until the current node it's null
+      }
+      else{ // else, i keep iterating over the tree normally until i find the node to delete
+        if(value > currentNode.value){ // if the value it's greater than the value of the behind node
+          deletedParentNode = currentNode; // i keep saving the current node as the deleted parent node in case that one of it's siblings it's the node to delete
+    		  currentNode = currentNode.right; // then the new next node it's the behind node's right
+        }
+      	else if(value < currentNode.value){ // else if the value its less than the value of the behind node
+          deletedParentNode = currentNode; // i keep saving the current node as the deleted parent node in case that one of it's siblings it's the node to delete
+      		currentNode = currentNode.left; // the next node it's the behind node's left
+        }
+        else{ // if it's not greater and not less, then it's equal
+          deletedNode = currentNode; // so i find the node to delete
+          if(currentNode.right) // if there's a greater value than the node to delete
+            currentNode = currentNode.right; // then the next node it's the right of the node to delete
+          else 
+            currentNode = currentNode.left; // else, the next node it's the left of the node to delete
+        }
+      }
+    } while(currentNode) //while the next node it's not null, i keep iterating over the tree
+
+    if(deletedNode){ // if the node to delete was found
+      if(deletedParentNode.left&&deletedParentNode.left.value == value) // then i check if the left node of the parent of the deleted node it's the node to delete
+        deletedParentNode.left = replacementNode;  // if it is, then i update the deleted parent's left node with the replacement node
+      else
+        deletedParentNode.right = replacementNode; // else, i update the deleted parent's right node with the replacement node
+
+      // update the nodes of the replacement node with the nodes of the deleted one
+      replacementNode.left = deletedNode.left;
+      replacementNode.right = deletedNode.right;
+
+      if(replacementParentNode){ // if there's a replacement parent node
+        if(replacementParentNode.left&&replacementParentNode.left.value == replacementNode.value) // then i check if the left node it's the replacement node
+          replacementParentNode.left = null; // if it is, then i update the replacement parent's left node with null
+        else
+          replacementParentNode.right = null; // else, i update the replacement parent's right node with null
+      }
+      return true; // and return true, since the node was removed
+    }
+    else return false; // else, return false
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -67,9 +130,9 @@ tree.insert(20)
 tree.insert(170)
 tree.insert(15)
 tree.insert(1)
+tree.insert(165)
+console.log(tree.remove(20))
 console.log(JSON.stringify(traverse(tree.root)))
-console.log(tree.lookup(15))
-console.log(tree.lookup(16))
 
 //     9
 //  4     20
