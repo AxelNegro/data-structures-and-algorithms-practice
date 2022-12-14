@@ -4,10 +4,30 @@ class Graph {
     this.adjacentList = {
     }; 
   } 
+  // Method in charge of adding a vertex/node
   addVertex(node)  { 
+    // First, i check if the node already exists
+    if(!this.adjacentList[node]){
+      // if not, then i add the node as a property of the object adjacentList
+      this.adjacentList[node] = []
+      // and increase the number of nodes
+      this.numberOfNodes++;
+    }
   } 
+  // Method in charge of adding a edge between nodes
   addEdge(node1, node2) { 
-    //undirected Graph 
+    // first, i check if both nodes exists
+    if(this.adjacentList[node1]&&this.adjacentList[node2]){
+      // if exist, then i check if the property node1 doesnt have the node 2 already 
+      if(!this.adjacentList[node1].includes(node2))
+        // if not, then i add it
+        this.adjacentList[node1].push(node2);
+      // later, i check if the property node1 doesnt have the node 2 already
+      if(!this.adjacentList[node2].includes(node1))
+        // if not, then i add it
+        this.adjacentList[node2].push(node1);
+    }
+      
   } 
   showConnections() { 
     const allNodes = Object.keys(this.adjacentList); 
