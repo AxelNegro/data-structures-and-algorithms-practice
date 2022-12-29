@@ -1,4 +1,4 @@
-const numbers = [99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0];
+const numbers = [99, 44, 63,6, 2, 1, 5, 63, 87, 283, 4, 0];
 
 function selectionSort(array) {
   // variable that contains the minimum value
@@ -20,7 +20,7 @@ function selectionSort(array) {
     }
     // once finished the inner for, then i change the positions of the minimum value with the actual element of the first for
     let aux = array[i];
-    array[i] = minum;
+    array[i] = array[minumPlace];
     array[minumPlace] = aux;
     // and reset the minimum value
     minum = null;
